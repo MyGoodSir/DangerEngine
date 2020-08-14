@@ -41,7 +41,7 @@ main: $(ENTRY_POINT) DGRCore.o
 
 
 ALL_SETTINGS = $(CXX) $(CXXFLAGS) $(LIBS) $(INC) $(INC_INTERNAL)
-DGRCore.o: $(SRC_DIR)/DGRCore.o 
+DGRCore.o: $(SRC_DIR)/DGRCore.cpp
 	$(ALL_SETTINGS) -c $(SRC_DIR)/DGRCore.cpp -o $(OUT_DIR)/DGRCore.o 
 
 
