@@ -2,10 +2,21 @@
 
 namespace DGREngine::util::io{
 
-    extern const char* getFileText(const char path[]){
-        std::ifstream f(path);
-        std::vector<char> o( (std::istreambuf_iterator<char>(f)), std::istreambuf_iterator<char>() );
-        return &o[0];
+    extern std::string getFileText(const char path[])
+    {
+        std::string text;
+        std::ifstream file_s(path, std::ios::in);
+        if (file_s.is_open())
+        {
+            std::stringstream sstr;
+            sstr << file_s.rdbuf();
+            file_s.close();
+            return sstr.str();
+        }
+        else
+        {
+            printf("cant read file");
+            return "";
+        }
     }
-
 }

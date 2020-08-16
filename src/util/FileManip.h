@@ -1,10 +1,9 @@
 #pragma once
 #include <vector>
 #include <fstream>
-#include <streambuf>
+#include <string>
+#include <sstream>
 
 namespace DGREngine::util::io{
-
-    extern const char* getFileText(const char path[]);
-
+    extern std::string getFileText(const char path[]);
 }

@@ -4,10 +4,8 @@
 using namespace DGREngine;
 
 int main(){
-
-    Core danger;
+    Core danger = Core();
     danger.init();
-
     while (!danger.shouldClose())
     {
         danger.preLoopProcesses();
@@ -16,5 +14,6 @@ int main(){
         danger.postLoopProcesses();
     }
     danger.terminate();
+ 
     return 0;
 }

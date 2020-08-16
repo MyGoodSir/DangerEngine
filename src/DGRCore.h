@@ -1,55 +1,55 @@
 #pragma once
 #include "Danger.h"
-#include "util/FileManip.h"
 #include <GLFW/glfw3.h>
 #include <stdio.h>
+#include <iostream>
 #include <vector>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace DGREngine{
-    typedef uint32_t uint;
+    typedef unsigned int uint;
     struct WindowAttributes
     {
         uint width, height;
         const char *title;
         
     };
-    struct Handles{
-        std::vector<uint> vbo_list;
-        uint shader_program;
-        uint vao;
+    struct RenderableObject{
+        float* verts;
+        uint8_t numverts;
+        uint8_t stride;
+        glm::mat4 translation;
+        glm::mat4 model_view_projection;
+        uint matrixID;
     };
-    
     //create vertex and vertex attribute structs and stuff later
     class Core
     {
     public:
-            float temp_verts[9] = {
-            -0.5f, -0.5f, 0.0f,
-             0.5f, -0.5f, 0.0f,
-             0.0f,  0.5f, 0.0f    };
-
+        
         GLFWwindow *ctx_window;
         WindowAttributes window_attribs;
         uint vbo_list;
-        uint shader_program;
+        int shader_program;
         uint vao;
+        glm::mat4 projection_matrix;
+        glm::mat4 view_matrix;
+        RenderableObject temp;
 
+        Core(){};
         void init();
-        void initGLFW();
-        void genWindow(WindowAttributes attribs);
-        void initGLAD();
+        void setup();
         bool shouldClose();
         void preLoopProcesses();
         void draw();
         void postLoopProcesses();
         void terminate();
         void setBlankCol(float, float, float, float);
-        void newVAO();
-        uint genVBO(float*);
-        void setVertexAttributes();//the way im doing this means i need to populate some local list of VAPs ahead of time when i start abstracting more. for now numbers are hard coded bc im lazy
         void loadShaders(const char [], const char []);
 
     };
     void setFramebufferSize(GLFWwindow *window, int width, int height);
     void checkInput(GLFWwindow *window);
+    void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *userParam);
 }
+
