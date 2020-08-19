@@ -12,13 +12,9 @@ namespace DGREngine::util::debug
     template <typename... ArgTypes>
     inline void clogger(ArgTypes... args)
     {
-        // trick to expand variadic argument pack without recursion
+        
         using expand_variadic_pack = int[];
-        // first zero is to prevent empty braced-init-list
-        // void() is to prevent overloaded operator, messing things up
-        // trick is to use the side effect of list-initializer to call a function
-        // on every argument.
-        // (void) is to suppress "statement has no effect" warnings
+        
         (void)expand_variadic_pack{0, ((std::cout << args), void(), 0)...};
     }
 

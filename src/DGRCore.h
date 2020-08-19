@@ -1,5 +1,6 @@
 #pragma once
 #include "Danger.h"
+#include "structs.h"
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 #include <iostream>
@@ -7,34 +8,21 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace DGREngine{
-    typedef unsigned int uint;
-    struct WindowAttributes
-    {
-        uint width, height;
-        const char *title;
-        
-    };
-    struct RenderableObject{
-        float* verts;
-        uint8_t numverts;
-        uint8_t stride;
-        glm::mat4 translation;
-        glm::mat4 model_view_projection;
-        uint matrixID;
-    };
+    using namespace structs;
     //create vertex and vertex attribute structs and stuff later
     class Core
     {
     public:
         
-        GLFWwindow *ctx_window;
-        WindowAttributes window_attribs;
-        uint vbo_list;
-        int shader_program;
+        
+        WindowAttributes window_attribs{};
         uint vao;
         glm::mat4 projection_matrix;
         glm::mat4 view_matrix;
-        RenderableObject temp;
+        RenderableObject temp{};
+        TextureData* tex;
+        std::vector<RenderableObject> objects;
+        Shader shader{};
 
         Core(){};
         void init();
@@ -46,7 +34,8 @@ namespace DGREngine{
         void terminate();
         void setBlankCol(float, float, float, float);
         void loadShaders(const char [], const char []);
-
+        void registerRenderable(RenderableObject &obj);
+        void makeObjects();
     };
     void setFramebufferSize(GLFWwindow *window, int width, int height);
     void checkInput(GLFWwindow *window);

@@ -4,6 +4,9 @@
 using namespace DGREngine;
 
 int main(){
+
+    
+
     Core danger = Core();
     danger.init();
     while (!danger.shouldClose())
