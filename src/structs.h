@@ -1,40 +1,67 @@
 #pragma once
+#include "Danger.h"
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <vector>
 #include <tuple>
-
+#include <bitset>
 namespace DGREngine::structs{
     typedef unsigned int uint;
-    struct WindowAttributes
-    {
-        GLFWwindow* handle;
-        uint width, height;
-        const char *title;
+    typedef unsigned char byte;
+    enum BufferType{
+        VERT, IND, DATA, CMD, ARRAY, ATTRIB, EMPTY
+    };
+    struct Buffer{
+        uint handle;
+        BufferType type;
+    };
+    struct AttributeInfo{
+        enum DataType{
+            UINT = GL_UNSIGNED_INT, FLOAT = GL_FLOAT
+        }type;
+        uint count, offset;
+    };
+    struct VAO{
+        uint handle, attribute_count, vertex_stride;
+        std::vector<AttributeInfo> attribs;
+        Buffer vertex_buffer, index_buffer;
     };
     struct TextureData{
-        unsigned char* data;
-        int width, height, numChannels;
         uint handle;
+        int width, height, channels;
+        int sampler_slot;
+        byte* data;
     };
-    struct RenderableObject
-    {
-        float *verts;
-        uint8_t numverts;
-        uint8_t stride, num_attribs;
-        std::vector<uint8_t> attrib_offset;
+    
 
-        glm::mat4 translation;
-        glm::mat4 model_view_projection;
-        uint matrixID;
-        uint size;
-        uint handle;
-    };
-    struct Shader{
-        uint h_program;
-        uint h_vert, h_frag;
-        const char *path_vert, *path_frag, *src_vert, *src_frag;
+    ///////////////////////
+    /*
+     *
+     * Events are functors
+     *  -window event
+     *  -keypress event
+     *  -mouse event
+     *  -game events (collision event, creation event, impulse event)
+     *  -render event?
+     * 
+     * API heirarchy
+     *  -Window
+     *   -Rendering Device
+     *    -Context (system state)
+     *      -bound buffers
+     *      -attribute arrays
+     *      -uniforms
+     *      -shaders
+     *      -stencil
+     *      -depth buffer
+     *      -AA settings
+     *      -rendering type (forward or deffered, raytraced or rasterized)
+     *    -Objects (data)
+     *      -camera (projection matrix, view matrix, camera position and orientation, ortho/perspective)
+     *      -buffers
+     * 
+     */
 
-    };
+
     
 }

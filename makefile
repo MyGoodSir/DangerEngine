@@ -32,7 +32,7 @@ LINKS = -lglfw3 -lglu32 -lopengl32 -lgdi32
 
 
 
-OBJECTS = $(OUT_DIR)/DGRCore.o $(OUT_DIR)/FileManip.o
+OBJECTS = $(OUT_DIR)/DGRCore.o $(OUT_DIR)/FileManip.o $(OUT_DIR)/Context.o $(OUT_DIR)/Shader.o
 all: main
 
 main: $(ENTRY_POINT) DGRCore.o
@@ -40,11 +40,17 @@ main: $(ENTRY_POINT) DGRCore.o
 
 
 ALL_SETTINGS = $(CXX) $(CXXFLAGS) $(LIBS) $(INC) $(INC_INTERNAL)
-DGRCore.o: $(SRC_DIR)/DGRCore.cpp FileManip.o
+DGRCore.o: $(SRC_DIR)/DGRCore.cpp FileManip.o Context.o Shader.o
 	$(ALL_SETTINGS) -c $(SRC_DIR)/DGRCore.cpp -o $(OUT_DIR)/DGRCore.o 
 
 FileManip.o: $(SRC_DIR)/util/FileManip.cpp
 	$(ALL_SETTINGS) -c $(SRC_DIR)/util/FileManip.cpp -o $(OUT_DIR)/FileManip.o
+
+Context.o: $(SRC_DIR)/Context.cpp
+	$(ALL_SETTINGS) -c $(SRC_DIR)/Context.cpp -o $(OUT_DIR)/Context.o
+
+Shader.o: $(SRC_DIR)/Structures/Shader.cpp
+	$(ALL_SETTINGS) -c $(SRC_DIR)/Structures/Shader.cpp -o $(OUT_DIR)/Shader.o
 
 
 run: $(OUT_DIR)/$(LAUNCHER_NAME).exe

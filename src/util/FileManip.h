@@ -7,6 +7,7 @@
 
 namespace DGREngine::util::io{
     using namespace structs;
-    extern std::string getFileText(const char path[]);
-    extern TextureData* loadImage(const char path[]);
+    std::string getFileText(const char path[]);
+    TextureData loadImage(const char path[]);
+    void FreeTextureData(byte *data);
 }

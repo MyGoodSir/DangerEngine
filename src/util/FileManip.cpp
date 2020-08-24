@@ -4,7 +4,7 @@
 
 namespace DGREngine::util::io{
 using namespace structs;
-    extern std::string getFileText(const char path[])
+    std::string getFileText(const char path[])
     {
         std::string text;
         std::ifstream file_s(path, std::ios::in);
@@ -22,9 +22,14 @@ using namespace structs;
         }
     }
 
-    extern TextureData *loadImage(const char path[]){
-        TextureData* t = new TextureData;
-        t->data = stbi_load(path, &(t->width), &(t->height), &(t->numChannels), 0);
+    TextureData loadImage(const char path[]){
+        TextureData t{};
+        stbi_set_flip_vertically_on_load(1);
+        t.data = stbi_load(path, &(t.width), &(t.height), &(t.channels), 4);
         return t;
+    }
+
+    void FreeTextureData(byte* data){
+        stbi_image_free(data);
     }
 }

@@ -1,9 +1,8 @@
 #pragma once
 #include "Danger.h"
 #include "structs.h"
+#include "Context.h"
 #include <GLFW/glfw3.h>
-#include <stdio.h>
-#include <iostream>
 #include <vector>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -12,33 +11,18 @@ namespace DGREngine{
     //create vertex and vertex attribute structs and stuff later
     class Core
     {
+        const char* name;
+        uint w, h;
+        GLFWwindow* window;
+        uint shader, u_loc, vbuf, ibuf, varr;
+        Context ctx{};
     public:
-        
-        
-        WindowAttributes window_attribs{};
-        uint vao;
-        glm::mat4 projection_matrix;
-        glm::mat4 view_matrix;
-        RenderableObject temp{};
-        TextureData* tex;
-        std::vector<RenderableObject> objects;
-        Shader shader{};
-
-        Core(){};
+        Core(const char *app_name = "default title", uint window_width = 800, uint window_height = 600) : name(app_name), w(window_width), h(window_height){}
         void init();
-        void setup();
-        bool shouldClose();
-        void preLoopProcesses();
-        void draw();
-        void postLoopProcesses();
-        void terminate();
-        void setBlankCol(float, float, float, float);
-        void loadShaders(const char [], const char []);
-        void registerRenderable(RenderableObject &obj);
+        void run();
         void makeObjects();
     };
-    void setFramebufferSize(GLFWwindow *window, int width, int height);
-    void checkInput(GLFWwindow *window);
+    static uint createShaderProgram(const char vertexFile[], const char fragmentFile[]);
     void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *userParam);
 }
 
