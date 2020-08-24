@@ -1,3 +1,9 @@
+/*\
+ *
+ * Stores the state of OpenGL.
+ * TODO: figure out how to make this POD and take the functions out of the struct.
+ * 
+\*/
 #pragma once
 #include "structs.h"
 #include "Structures/Shader.h"

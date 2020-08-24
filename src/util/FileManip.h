@@ -1,3 +1,9 @@
+/*\
+ *
+ * helper functions that handle file IO
+ * TODO: IO for object files
+ * 
+\*/
 #pragma once
 #include "structs.h"
 #include <vector>

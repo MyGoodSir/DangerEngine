@@ -1,3 +1,9 @@
+/*\
+ *
+ * Will be API's outward interface 
+ * TODO: figure out exactly how this is gonna be structured
+ * 
+\*/
 #pragma once
 #include "Danger.h"
 #include "structs.h"

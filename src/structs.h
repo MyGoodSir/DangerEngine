@@ -1,3 +1,9 @@
+/*\
+ *
+ * Temp file for POD structures. 
+ * TODO: break this into multiple files that hold the structure (and associated functions?)
+ * 
+\*/
 #pragma once
 #include "Danger.h"
 #include <GLFW/glfw3.h>
@@ -61,7 +67,5 @@ namespace DGREngine::structs{
      *      -buffers
      * 
      */
-
-
-    
+    ///////////////////////
 }

@@ -1,3 +1,9 @@
+/*\
+ *
+ * Logging helper functions
+ * TODO: make this less garbage
+ * 
+\*/
 #pragma once
 
 #include <iostream>

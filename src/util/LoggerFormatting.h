@@ -1,4 +1,8 @@
-
+/*\
+ *
+ * ANSI codes for logger text colors and formatting
+ * 
+\*/
 namespace DGREngine::util::debug::formatting
 {
     //Regular text

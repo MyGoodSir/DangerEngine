@@ -1,3 +1,9 @@
+/*\
+ *
+ * shader stores uniform and sampler state
+ * TODO: create cache for uniform and sampler location values so we dont have to ask opengl every time
+ * 
+\*/
 #pragma once
 #include "structs.h"
 namespace DGREngine::structs
