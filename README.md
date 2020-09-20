@@ -6,7 +6,7 @@ Description
 
 Notes
 - Many assets come from various opengl tutorials, I'll create a list here soon, but this project is meant for personal use anyway.
--assimp wanted to be compiled with MSVC so I ditched my beloved build system and now im just using Visual Studio 2019 :(
+- assimp wanted to be compiled with MSVC so I ditched my beloved build system and now im just using Visual Studio 2019 :(
 
 External Dependencies:
 -GLAD
