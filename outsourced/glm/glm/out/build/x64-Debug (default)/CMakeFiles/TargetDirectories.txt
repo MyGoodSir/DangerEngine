@@ -1,0 +1,2 @@
+C:/dev/_Rendering/DangerEngineVS/outsourced/glm/glm/out/build/x64-Debug (default)/CMakeFiles/edit_cache.dir
+C:/dev/_Rendering/DangerEngineVS/outsourced/glm/glm/out/build/x64-Debug (default)/CMakeFiles/rebuild_cache.dir
