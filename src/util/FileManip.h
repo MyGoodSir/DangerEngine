@@ -5,8 +5,7 @@
 #include <string>
 #include <sstream>
 
-typedef unsigned int uint;
-typedef unsigned char byte;
+#include "typealias.h"
 
 class FileIOManager{
     public:

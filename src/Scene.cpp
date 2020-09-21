@@ -2,6 +2,7 @@
 
 namespace DGR {
 
+	//delare static variables so that they actually have space in memory
 	Camera Scene::mainCamera;
 	float Scene::mouseX;
 	float Scene::mouseY;
@@ -12,6 +13,7 @@ namespace DGR {
 	uint Scene::WINDOW_HEIGHT;
 	bool Scene::freeCursor;
 	bool Scene::tabReleased;
+
 	void Scene::initScene() {
 		mainCamera = {};
 		mouseX = WINDOW_WIDTH / 2.0f;

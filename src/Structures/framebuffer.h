@@ -1,28 +1,20 @@
 #pragma once
 
 #include "Danger.h"
+#include "util/typealias.h"
 #include "util/Logger.h"
 #include "shader.h"
 #include "mesh.h"
-#include "util/FileManip.h"
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <map>
 #include <vector>
 
-typedef unsigned int uint;
+//framebuffer texture data
 struct FBTexture {
 	GLenum format, precision, datatype;
 	uint attachment_number;
-
 	uint handle;
 };
+//framebuffer data
 struct Framebuffer {
 	uint handle;
 	uint width, height;
@@ -44,9 +36,11 @@ public:
 	static void deleteFramebuffer(Framebuffer &fb) {
 		glDeleteFramebuffers(1, &fb.handle);
 	}
+	//is this a complete framebuffer
 	static bool check_status() {
 		return glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE;
 	}
+	//create new framebuffer
 	static Framebuffer create(uint width, uint height) {
 		Framebuffer fb{};
 		glGenFramebuffers(1, &fb.handle);
@@ -55,6 +49,7 @@ public:
 		return fb;
 		
 	}
+	//create new framebuffer texture
 	static void create_fbtexture(Framebuffer& fb, FBTexture tex) {
 		tex.attachment_number = fb.num_attachments;
 		fb.num_attachments++;
@@ -69,6 +64,8 @@ public:
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	}
+
+	//draw to all framebuffer attachments
 	static void draw_target_all(Framebuffer& fb) {
 		glBindFramebuffer(GL_FRAMEBUFFER, fb.handle);
 		uint* a_arr = new uint[fb.num_attachments];
@@ -79,6 +76,7 @@ public:
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	}
+	//generate a renderbuffer for the specified framebuffer
 	static void gen_renderbuffer(Framebuffer& fb) {
 		glBindFramebuffer(GL_FRAMEBUFFER, fb.handle);
 		uint rboDepth;
@@ -86,8 +84,9 @@ public:
 		glBindRenderbuffer(GL_RENDERBUFFER, rboDepth);
 		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, fb.width, fb.height);
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboDepth);
-		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-			std::cout << "Framebuffer not complete!" << std::endl;
+		DGR_ASSERT(
+			(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE), 
+			"Framebuffer not complete!");
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 };

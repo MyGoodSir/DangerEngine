@@ -8,7 +8,7 @@
 
 struct BasicLight {
 	glm::vec3 color;
-	float diffuse_strength;
+	float diffuse_strength; 
 };
 
 struct PointLight {
@@ -21,6 +21,7 @@ struct PointLight {
 	}attenuation;
 };
 
+//point light with a spherical bounding volume
 struct VolumeLight {
 	BasicLight basic_values;
 	glm::vec3 position;
@@ -29,7 +30,7 @@ struct VolumeLight {
 		float linear;
 		float quadratic;
 	}attenuation;
-	float radius;
+	float radius;//radius of bounding volume
 };
 
 struct SpotLight {
@@ -42,12 +43,13 @@ struct SpotLight {
 class LightManager {
 public:
 
+	//calculate bounding volume for light
 	static void calculate_radius(VolumeLight &p) {
 		const float max_brightness = std::fmaxf(std::fmaxf(p.basic_values.color.r, p.basic_values.color.g), p.basic_values.color.b);
 		p.radius = (-p.attenuation.linear + std::sqrt(p.attenuation.linear * p.attenuation.linear - 4
 			* p.attenuation.quadratic * (p.attenuation.constant - (256.0f / 5.0f) * max_brightness))) / (2.0f * p.attenuation.quadratic);
 	}
-
+	
 	static SpotLight create_spotlight(glm::vec3 color = { 0.0f,0.0f,0.0f }, float diffuse = 0.5f,
 		glm::vec3 position = { 0.0f, 0.0f, 0.0f }, float attenuation_c = 1.0f, float attenuation_l = 0.0f,
 		float attenuation_q = 0.0f, glm::vec3 direction = {0.0f, 1.0f, 0.0f}, float cutoff = 45.0f) {

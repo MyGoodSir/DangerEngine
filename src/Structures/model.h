@@ -6,18 +6,15 @@
 #include "util/FileManip.h"
 
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
 #include <string>
-#include <fstream>
-#include <sstream>
 #include <iostream>
-#include <map>
 #include <vector>
 
+//model data
 struct Model{
     std::vector<Texture> textures;
     std::vector<Mesh> meshes;
@@ -26,7 +23,7 @@ struct Model{
 };
 
 class ModelManager{
-
+    //load the textures for the given material
     static std::vector<Texture> getMatTextures(Model &m, aiMaterial *mat, aiTextureType type, std::string typeName){
         std::string dir = m.path.substr(0, m.path.find_last_of('/'));//this can be done in a better place...
         std::vector<Texture> ts;
@@ -81,6 +78,7 @@ class ModelManager{
         return ts;
     }
 
+    //parse assimp mesh data into our mesh object
     static Mesh processMesh(Model &model, aiMesh *m, const aiScene *s)
     {
         std::vector<Vertex> vt;
@@ -135,6 +133,7 @@ class ModelManager{
         return MeshManager::Generate(vt, id, tx);
     }
 
+    //recursively process all of the model data
     static void processNodes(Model &model, aiNode* n, const aiScene* s){
         for(uint i = 0; i < n->mNumMeshes; i++){
             aiMesh* m = s->mMeshes[n->mMeshes[i]];
@@ -148,6 +147,7 @@ class ModelManager{
 
     public:
     static void Init(){}
+    //create a new model
     static Model Create(std::string path, bool gamma = false){
         Model m = {{},{},path,gamma};
         Assimp::Importer imp;
@@ -160,6 +160,7 @@ class ModelManager{
         processNodes(m, scene->mRootNode, scene);
         return m;
     }
+    //draw model
     static void Draw(Model model, Shader &shader){
         for(Mesh& m : model.meshes){
             MeshManager::draw(m, shader);

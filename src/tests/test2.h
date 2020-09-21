@@ -4,14 +4,14 @@ namespace DGR {
 	class test2 : public Scene
 	{
 	public:
-		uint NUM_LIGHTS = 32;
+		uint NUM_LIGHTS = 32;//number of light volumes to be rendered
 		Framebuffer fb;
-		Shader shader_geom_pass;
-		Shader shader_lighting_pass;
-		Shader shader_light_box;
+		Shader gbuff_pass;
+		Shader lighting_pass;
+		Shader light_geometry;
 		Model backpack, block;
-		std::vector<glm::vec3> instance_pos;
-		std::vector<VolumeLight> lights;
+		std::vector<glm::vec3> instance_pos; //model instance data
+		std::vector<VolumeLight> lights; //light volume data
 		void setup();
 		void render();
 		void renderCube();

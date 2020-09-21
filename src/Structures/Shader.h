@@ -6,16 +6,14 @@
 
 #include <string>
 #include <iostream>
-#include <map>
-
-typedef unsigned int Shader;
-typedef unsigned int uint;
+#include "util/typealias.h"
 //TODO: ADD UBOs
 
 class ShaderManager
 {
 public:
     static void Init() {}
+    //should be called create...
     static Shader Generate(const char vertexFile[], const char fragmentFile[], const char geometryFile[] = nullptr)
     {
         std::string vstring, fstring, gstring;
@@ -85,11 +83,14 @@ public:
         return handle;
     }
     
+    //set this as the current shader program
     static void use(Shader s)
     {
         glUseProgram(s);
     }
 
+    //set uniform data
+    
     static void setUniBool(Shader handle, const std::string &name, bool value)
     {
         glUniform1i(glGetUniformLocation(handle, name.c_str()), (int)value);
@@ -147,7 +148,4 @@ public:
         glUniformMatrix4fv(glGetUniformLocation(handle, name.c_str()), 1, GL_FALSE, &mat[0][0]);
     }
 
-    inline static uint getLocation(Shader handle, const std::string& name) {
-        
-    }
 };

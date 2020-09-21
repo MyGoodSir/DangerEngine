@@ -1,7 +1,6 @@
 #pragma once
 #include <Danger.h>
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include <util/Logger.h>
 #include "texture.h"
 #include "shader.h"
@@ -10,15 +9,16 @@
 #include <vector>
 #include <cstdlib>
 #include <cstring>
+#include "util/typealias.h"
 
-typedef unsigned int uint;
-
+//vertex data
 struct Vertex{
     glm::vec3 position, normal;
     glm::vec2 texture_coordinates;
     glm::vec3 tangent, bitangent;
 };
 
+//mesh data
 struct Mesh{
     std::vector<Vertex> verts;
     std::vector<uint> inds;
@@ -28,8 +28,9 @@ struct Mesh{
 
 class MeshManager{
     public:
-    static std::vector<std::string> texture_types;
+    static std::vector<std::string> texture_types; //a list of names that when combined with a number identify a specific texture uniform
     private:
+    //index of the texture type in the above list of texture types 
     static int indexOfTextureType(const std::string type_name){
         for(int i = 0; i < texture_types.size(); i++){
             if (strcmp(type_name.c_str(), texture_types[i].c_str()) == 0){
@@ -39,38 +40,37 @@ class MeshManager{
         DGR_LOG_FATAL("TEXTURE TYPE NOT FOUND: ", type_name);
         return -1;
     }
+    //
     static void setupMesh(Mesh &mesh)
     {
-        // create buffers/arrays
+        
         glGenVertexArrays(1, &(mesh.vao));
         glGenBuffers(1, &(mesh.vbo));
         glGenBuffers(1, &(mesh.eabo));
 
         glBindVertexArray(mesh.vao);
-        // load data into vertex buffers
+
         glBindBuffer(GL_ARRAY_BUFFER, mesh.vbo);
-        // A great thing about structs is that their memory layout is sequential for all its items.
-        // The effect is that we can simply pass a pointer to the struct and it translates perfectly to a glm::vec3/2 array which
-        // again translates to 3/2 floats which translates to a byte array.
+        //PoD structs have guaranteed standard data layout, so opengl has no problem reading them if we pass them as an array of bytes
         glBufferData(GL_ARRAY_BUFFER, mesh.verts.size() * sizeof(Vertex), &mesh.verts[0], GL_STATIC_DRAW);
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.eabo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.inds.size() * sizeof(unsigned int), &mesh.inds[0], GL_STATIC_DRAW);
 
-        // set the vertex attribute pointers
-        // vertex Positions
+        
+        // position
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)0);
-        // vertex normals
+        // normal
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, normal));
-        // vertex texture coords
+        // texcoords
         glEnableVertexAttribArray(2);
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, texture_coordinates));
-        // vertex tangent
+        // tangent
         glEnableVertexAttribArray(3);
         glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, tangent));
-        // vertex bitangent
+        // bitangent
         glEnableVertexAttribArray(4);
         glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, bitangent));
 
@@ -81,9 +81,11 @@ class MeshManager{
     static void Init(){
         
     }
+    //add texture type to list of texture types
     static void RegisterTextureType(std::string type){
         texture_types.push_back(type);
     }
+    //this should be called create...
     static Mesh Generate(std::vector<Vertex> vertices, std::vector<uint> indices, std::vector<Texture> textures) {
         Mesh m = {
             vertices,
@@ -94,9 +96,10 @@ class MeshManager{
         setupMesh(m);
         return m;
     }
+    //draw mesh
     static void draw(Mesh &mesh, Shader &shader)
     {
-        static std::vector<uint> type_counters;
+        static std::vector<uint> type_counters;//number of texture uniforms per type
         for (std::string n : texture_types)
         {
             type_counters.push_back(1);

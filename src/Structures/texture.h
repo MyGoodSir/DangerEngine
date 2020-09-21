@@ -1,14 +1,14 @@
 #pragma once
 #include <string>
+#include "util/typealias.h"
 
-typedef unsigned char byte;
-typedef unsigned int uint;
-
+//data about a texture being loaded
 struct TextureData{
     int width, height, component_count;
     byte* data;
 };
 
+//data about a texture that is in use by the program
 struct Texture
 {
     uint handle;

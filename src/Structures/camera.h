@@ -8,27 +8,32 @@
 #include <vector>
 
 
+//camera data
 struct Camera{
     glm::vec3 pos;
-    glm::vec3 front;
-    glm::vec3 up;
-    glm::vec3 right;
-    glm::vec3 world_up;
-    float yaw;
-    float pitch;
-    // camera options
-    float speed;
-    float mouse_sens;
-    float zoom;
-    glm::mat4 projection, world;
-    float fov;
+    glm::vec3 front;//forward direction
+    glm::vec3 up; //positive y axis in camera space as worldspace direction
+    glm::vec3 right;//positive x axis in camera space as worldspace direction
+    glm::vec3 world_up;//direction of positive y axis of world
+    float yaw; //rotation around cameraspace y axis
+    float pitch; //rotation around cameraspace x axis
+    //roll will be rotation around cameraspace z axis 
+    
+
+    float speed; //movement speed
+    float mouse_sens; //look speed
+    float zoom; //fov
+    glm::mat4 projection, world; //transformation matricies 
 };
+
+//default values
 const float YAW = -90.0f;
 const float PITCH = 0.0f;
 const float SPEED = 2.5f;
 const float SENS = 0.1f;
 const float ZOOM = 45.0f;
 
+//movement direction enum
 enum Movement
 {
     FORWARD,
@@ -39,10 +44,14 @@ enum Movement
     DOWN
 };
 
+
 class CameraManager{
     public:
+    //initialize static global values
     static void Init(){}
-    //make sure this properly transforms the object
+    
+    //change front, right, and up vectors based on updated yaw and pitch values
+    //only updates rotation
     static void UpdateVecs(Camera &cam)
     {
         cam.front.x = cos(glm::radians(cam.yaw)) * cos(glm::radians(cam.pitch));
@@ -53,6 +62,7 @@ class CameraManager{
         cam.up = glm::normalize(glm::cross(cam.right, cam.front));
     }
 
+    //creates a new camera object
     static Camera Create(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH)
     {
         Camera cam = {
@@ -71,11 +81,13 @@ class CameraManager{
         return cam;
     }
 
+    //creates camera view transformation matrix
     static glm::mat4 GetViewMatrix(Camera cam)
     {
         return glm::lookAt(cam.pos, cam.pos + cam.front, cam.up);
     }
 
+    //moves camera
     static void UpdatePosition(Camera &cam, Movement dir, float dtime){
         float dpos = cam.speed * dtime;
         if (dir == FORWARD)
@@ -92,6 +104,7 @@ class CameraManager{
             cam.pos -= cam.up * dpos;
     }
 
+    //update camera position based on mouse offset
     static void UpdateEulerAngles(Camera &cam, float xoffset, float yoffset, GLboolean constrainPitch = true)
     {
         xoffset *= cam.mouse_sens;
@@ -100,7 +113,7 @@ class CameraManager{
         cam.yaw += xoffset;
         cam.pitch += yoffset;
 
-        // make sure that when pitch is out of bounds, screen doesn't get flipped
+        // cant look up more than 90 degrees or down more than 90 degrees. prevents the camera from flipping upside-down
         if (constrainPitch)
         {
             if (cam.pitch > 89.0f)
@@ -109,10 +122,11 @@ class CameraManager{
                 cam.pitch = -89.0f;
         }
 
-        // update Front, Right and Up Vectors using the updated Euler angles
+        
         UpdateVecs(cam);
     }
 
+    //changes fov
     static void UpdateZoom(Camera &cam, float yoffset)
     {
         cam.zoom -= (float)yoffset;
@@ -121,6 +135,23 @@ class CameraManager{
         if (cam.zoom > 45.0f)
             cam.zoom = 45.0f;
     }
+
+
+    //oblique view frustum near plane clipping
+    //used to prevent camera occlusion when less than the full view frustum needs to be displayed
+    //diagram: 
+    //(p = portal, o = obstruction, c = camera, | = nearplane, .:* = visible area)
+
+    /*[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+    []                      ....      []                          ....      []
+    []                ....:::::       []                      |.::::::      []
+    []           ..:::::p::**         []                      |p::::::      []
+    []       |::::::::**p             []                o     |p::::::      []
+    []     C |:::::o    p             []       C        o     |p::::::      []
+    []       |:::::::.. p             []                      |p::::::      []
+    []           **:::::::....        []                      |:::::::      []
+    [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]*/
+
 
     static void ClipNearPlaneOblique(Camera &cam, glm::vec3 position, glm::vec3 normal) {
         glm::vec4 clip_position = (cam.world * glm::vec4(position, 1));//adjust position from cameraspace to worldspace
