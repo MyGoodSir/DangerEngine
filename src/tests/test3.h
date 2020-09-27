@@ -5,13 +5,12 @@ namespace DGR {
 	{
 	public:
 		uint NUM_LIGHTS = 1;
-		Framebuffer fb;
-		Shader shader_geom_pass, shader_portal_pass;
-		Shader shader_lighting_pass;
-		Shader shader_light_box;
+		Shader shader_bp, shader_portal_pass;
 		Model backpack, block, panel;
 		std::vector<glm::vec3> instance_pos;
 		std::vector<VolumeLight> lights;
+		glm::vec3 p1_pos, p2_pos;
+		Camera p1_cam, p2_cam;
 		unsigned int quadVAO = 0;
 		unsigned int quadVBO;
 		unsigned int cubeVAO = 0;

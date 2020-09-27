@@ -1,23 +1,13 @@
-﻿  main.cpp
-C:\dev\_Rendering\DangerEngineVSRewrite\src\structures\mesh.h(122,1): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(92,15): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(93,15): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(97,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(98,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(100,14): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(101,14): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(110,42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  test3.cpp
-C:\dev\_Rendering\DangerEngineVSRewrite\src\structures\mesh.h(122,1): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(92,15): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(93,15): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(97,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(98,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(100,14): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(101,14): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(110,42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\dev\_Rendering\DangerEngineVSRewrite\src\tests\test3.cpp(60,30): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\dev\_Rendering\DangerEngineVSRewrite\src\tests\test3.cpp(61,32): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\dev\_Rendering\DangerEngineVSRewrite\src\tests\test3.cpp(78,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
+﻿  test3.cpp
+C:\dev\_Rendering\DangerEngineVSRewrite\src\structures\mesh.h(125,1): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(101,15): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(102,15): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(106,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(107,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(109,14): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(110,14): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\dev\_Rendering\DangerEngineVSRewrite\src\Scene.h(119,42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\dev\_Rendering\DangerEngineVSRewrite\src\tests\test3.cpp(82,30): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\dev\_Rendering\DangerEngineVSRewrite\src\tests\test3.cpp(83,32): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\dev\_Rendering\DangerEngineVSRewrite\src\tests\test3.cpp(100,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   DangerEngineVS.vcxproj -> C:\dev\_Rendering\DangerEngineVSRewrite\bin\DangerEngineVS.exe

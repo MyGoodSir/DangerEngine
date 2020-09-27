@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\DangerConfig.h" />
     <ClInclude Include="src\imgui\imconfig.h" />
     <ClInclude Include="src\imgui\imgui.h" />
     <ClInclude Include="src\imgui\imgui_impl_glfw.h" />
@@ -168,7 +169,6 @@
     <ClInclude Include="src\structures\shader.h" />
     <ClInclude Include="src\structures\structures.h" />
     <ClInclude Include="src\structures\texture.h" />
-    <ClInclude Include="src\structures\types.h" />
     <ClInclude Include="src\structures\window.h" />
     <ClInclude Include="src\structures\WorldObject.h" />
     <ClInclude Include="src\tests\test2.h" />
@@ -177,6 +177,7 @@
     <ClInclude Include="src\util\LoggerFormatting.h" />
     <ClInclude Include="src\util\packed_freelist.h" />
     <ClInclude Include="src\tests\test3.h" />
+    <ClInclude Include="src\util\typealias.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\imgui\imgui.cpp" />
@@ -187,7 +188,6 @@
     <ClCompile Include="src\Danger.cpp" />
     <ClCompile Include="src\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\Scene.cpp" />
-    <ClCompile Include="src\DGRCore.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\structures\structures.cpp" />

@@ -1,7 +1,7 @@
 #include "main.h"
 
 //change this to 3 to see stencil buffer stuff and IMGUI implementation
-#define TEST_NUMBER 2 
+#define TEST_NUMBER 3 
 
 #if TEST_NUMBER == 2
 

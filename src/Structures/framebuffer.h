@@ -84,9 +84,10 @@ public:
 		glBindRenderbuffer(GL_RENDERBUFFER, rboDepth);
 		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, fb.width, fb.height);
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboDepth);
-		DGR_ASSERT(
-			(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE), 
-			"Framebuffer not complete!");
+		if (
+			(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) ){
+			DGR_LOG_ERROR("Framebuffer not complete!");
+		}
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 };

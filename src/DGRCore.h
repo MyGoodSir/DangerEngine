@@ -66,32 +66,3 @@
 \*/
 
 
-struct DGRSettings {
-	/*\
-	 *stencil test?
-	 *winding ordere?
-	 *blending?
-	 *depth testing?
-	 *window settings
-	 *(eventually)API
-	 *
-	 *
-	\*/
-};
-
-
-namespace DGR{
-namespace Renderer
-{
-	
-	
-	//FramebufferManager framebuffer_manager;
-	//LightManager light_manager;
-	//ModelManager model_manager;
-	//MeshManager mesh_manager;
-	//ShaderManager shader_manager;
-	//CameraManager camera_manager;
-
-
-}}
-
